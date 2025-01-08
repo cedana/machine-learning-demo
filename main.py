@@ -27,6 +27,8 @@ default_value = {
 
 ## SET config above
 
+print(f"Loading model... {default_value['model_id']}: {default_value['torch_device_map']}, {default_value['torch_dtype']}", flush=True)
+
 model_id = default_value["model_id"]
 model_params = {
     "device_map": default_value["torch_device_map"],
