@@ -16,8 +16,10 @@ COPY requirements.txt requirements.txt
 
 RUN python3 -m pip install -r requirements.txt
 
-COPY main.py init.py .
+COPY init.py .
 
 RUN python3 init.py
+
+COPY main.py .
 
 CMD ["python3", "main.py"]

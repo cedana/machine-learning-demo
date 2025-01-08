@@ -1,6 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, TextStreamer, BitsAndBytesConfig
 from huggingface_hub import login
 import torch
+import time
 
 default_value = {
     'access_gated':False,
@@ -28,6 +29,7 @@ default_value = {
 ## SET config above
 
 print(f"Loading model... {default_value['model_id']}: {default_value['torch_device_map']}, {default_value['torch_dtype']}", flush=True)
+time.sleep(10)
 
 model_id = default_value["model_id"]
 model_params = {
