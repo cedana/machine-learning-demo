@@ -40,20 +40,24 @@ model_params = {
 model = AutoModelForCausalLM.from_pretrained(model_id, **model_params)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-while True:
-    user_input = "Explain what is a GPU?"
+try:
+    while True:
+        user_input = "Explain what is a GPU?"
 
-    # Tokenize input
-    inputs = tokenizer(user_input, return_tensors="pt").to(model.device)
+        # Tokenize input
+        inputs = tokenizer(user_input, return_tensors="pt").to(model.device)
 
-    # Generate tokens
-    tokens = model.generate(
-        **inputs,
-        max_new_tokens=100,
-        temperature=default_value["temperature"],
-        top_p=default_value["top_p"],
-        do_sample=default_value["do_sample"],
-    )
+        # Generate tokens
+        tokens = model.generate(
+            **inputs,
+            max_new_tokens=100,
+            temperature=default_value["temperature"],
+            top_p=default_value["top_p"],
+            do_sample=default_value["do_sample"],
+        )
 
-    output = tokenizer.decode(tokens[0], skip_special_tokens=True)
-    print(f"\n---------------------------------------------------\nOutput:\n{output}", flush=True)
+        output = tokenizer.decode(tokens[0], skip_special_tokens=True)
+        print(f"\n---------------------------------------------------\nOutput:\n{output}", flush=True)
+except Exception as e:
+    with open("/tmp/ml/out.txt", "a+") as f:
+        f.write(f"\n---------------------------------------------------\nError:\n{traceback.format_exc()}")
